@@ -1,0 +1,16 @@
+<!-- produits/templates/produits/liste_produits.html -->
+
+{% extends 'produits/base.html' %}
+
+{% block content %}
+    <h1>Nos Produits</h1>
+    <ul>
+        {% for produit in produits %}
+            <li>
+                <h3>{{ produit.nom }}</h3>
+                <p>{{ produit.prix }} €</p>
+                <img src="{{ produit.image.url }}" alt="{{ produit.nom }}" width="200">
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

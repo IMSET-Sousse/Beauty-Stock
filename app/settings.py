@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+import os  # Il faut importer os pour les chemins relatifs
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,7 +26,7 @@ SECRET_KEY = 'django-insecure-ts9o%p5(a#&$svw##ko#t(jl)@h1lpq9=-4)g#k#a)t3g1gt-f
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = []  # Ajouter les hôtes autorisés en production
 
 
 # Application definition
@@ -37,7 +38,20 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'produits',  # Assurez-vous que 'produits' est bien ajouté ici
 ]
+
+# Configuration pour les fichiers statiques
+STATIC_URL = '/static/'
+
+# Dossier pour les fichiers statiques dans ton application 'produits'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'produits/static'),  # Utilisation de os pour le chemin
+]
+
+# Fichier CSS statique principal
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -54,7 +68,7 @@ ROOT_URLCONF = 'app.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],  # Ajouter le dossier templates à rechercher
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -103,7 +117,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'en-us'  # Utilise 'fr-fr' pour le français
 
 TIME_ZONE = 'UTC'
 
@@ -115,7 +129,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = 'static/'
+# Configure l'emplacement où les fichiers statiques seront collectés
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Pour la production uniquement
+
+# settings.py
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field

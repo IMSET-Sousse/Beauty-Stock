@@ -1,0 +1,19 @@
+@startuml
+
+node "Client (Navigateur)" {
+    artifact "Interface utilisateur" as UI
+}
+
+node "Serveur Web (Django)" {
+    artifact "Application Django" as Django
+    artifact "Serveur Web (Gunicorn)" as Gunicorn
+}
+
+node "Serveur de Base de Données" {
+    artifact "Base de Données (SQLite)" as DB
+}
+
+UI -down-> Django : Utilise
+Django -down-> DB : Accède à la base de données
+
+@enduml

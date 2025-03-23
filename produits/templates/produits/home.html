@@ -2,89 +2,16 @@
 {% block content %}
 {% load static %}
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=Raleway:wght@300;400;600&display=swap" rel="stylesheet">
-<style>
-    :root {
-        --primary: #E75480;  /* Rose profond */
-        --secondary: #FFB6C1; 
-        --accent: #FBE5E5;
-        --text: #3C3C3C;
-        --bg: #FFF9FB;
-    }
-
-    body {
-        font-family: 'Raleway', sans-serif;
-        background: var(--bg);
-        color: var(--text);
-    }
-
-    .dashboard-container {
-        display: grid;
-        grid-template-columns: 250px 1fr;
-        min-height: 100vh;
-    }
-
-    .sidebar {
-        background: white;
-        box-shadow: 4px 0 15px rgba(0,0,0,0.05);
-        padding: 2rem;
-    }
-
-    .product-table {
-        background: white;
-        border-radius: 15px;
-        overflow: hidden;
-        box-shadow: 0 5px 25px rgba(0,0,0,0.05);
-    }
-
-    .product-table th {
-        background: var(--primary);
-        color: white;
-        font-weight: 600;
-        padding: 1.2rem;
-    }
-
-    .product-table td {
-        padding: 1rem;
-        border-bottom: 1px solid var(--accent);
-    }
-
-    .category-badge {
-        background: var(--accent);
-        color: var(--primary);
-        padding: 0.3rem 0.8rem;
-        border-radius: 20px;
-        font-size: 0.9em;
-    }
-
-    .expiry-warning {
-        color: #ff4444;
-        font-weight: 600;
-    }
-
-    .form-container {
-        max-width: 800px;
-        background: white;
-        border-radius: 15px;
-        padding: 2rem;
-        box-shadow: 0 5px 25px rgba(0,0,0,0.05);
-    }
-
-    .ingredient-list {
-        column-count: 2;
-        column-gap: 2rem;
-    }
-</style>
-
+<!-- Contenu spécifique à la page d'accueil -->
 <div class="dashboard-container">
     <!-- Sidebar -->
     <aside class="sidebar">
         <h2 class="h4 mb-4" style="color: var(--primary);">Beauty Stock</h2>
         <nav class="nav flex-column">
-            <a class="nav-link active" href="#">
+            <a class="nav-link active" href="{% url 'home' %}">
                 <i class="fas fa-cubes me-2"></i> Produits
             </a>
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="{% url 'ajouter_produit' %}">
                 <i class="fas fa-plus-circle me-2"></i> Ajouter produit
             </a>
             <a class="nav-link" href="#">
@@ -98,9 +25,9 @@
         <!-- Barre d'outils -->
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h3 class="mb-0">Gestion des produits</h3>
-            <button class="btn btn-primary">
+            <a href="{% url 'ajouter_produit' %}" class="btn btn-primary">
                 <i class="fas fa-plus me-2"></i> Nouveau produit
-            </button>
+            </a>
         </div>
 
         <!-- Tableau des produits -->
@@ -117,77 +44,41 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- Exemple de produit -->
-                    <tr>
-                        <td>
-                            <div class="fw-500">Crème Hydratante Pro</div>
-                            <small class="text-muted">Soin visage</small>
-                        </td>
-                        <td><span class="category-badge">Soins peau</span></td>
-                        <td>49.99€</td>
-                        <td>
-                            <div class="d-flex align-items-center">
-                                <div class="progress" style="height: 8px; width: 100px;">
-                                    <div class="progress-bar" style="width: 75%;"></div>
+                    {% for produit in produits %}
+                        <tr>
+                            <td>
+                                <div class="fw-500">{{ produit.nom }}</div>
+                                <small class="text-muted">{{ produit.categorie }}</small>
+                            </td>
+                            <td><span class="category-badge">{{ produit.categorie }}</span></td>
+                            <td>{{ produit.prix }}€</td>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <div class="progress" style="height: 8px; width: 100px;">
+                                        <div class="progress-bar" style="width: {{ produit.stock|floatformat:0 }}%;"></div>
+                                    </div>
+                                    <small class="ms-2">{{ produit.stock }} unités</small>
                                 </div>
-                                <small class="ms-2">75 unités</small>
-                            </div>
-                        </td>
-                        <td class="expiry-warning">15/12/2024</td>
-                        <td>
-                            <button class="btn btn-sm btn-outline-primary me-2">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button class="btn btn-sm btn-outline-danger">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </td>
-                    </tr>
+                            </td>
+                            <td class="expiry-warning">{{ produit.date_expiration|date:"d/m/Y" }}</td>
+                            <td>
+                                <a href="{% url 'modifier_produit' produit.id %}" class="btn btn-sm btn-outline-primary me-2">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <a href="{% url 'supprimer_produit' produit.id %}" class="btn btn-sm btn-outline-danger">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="6" class="text-center">Aucun produit trouvé</td>
+                        </tr>
+                    {% endfor %}
                 </tbody>
             </table>
         </div>
-
-        <!-- Formulaire d'ajout -->
-        <div class="form-container mt-4">
-            <h4 class="mb-4">Ajouter un produit</h4>
-            <form>
-                <div class="row g-3">
-                    <div class="col-md-6">
-                        <label class="form-label">Nom du produit</label>
-                        <input type="text" class="form-control">
-                    </div>
-                    <div class="col-md-6">
-                        <label class="form-label">Catégorie</label>
-                        <select class="form-select">
-                            <option>Soins de la peau</option>
-                            <option>Maquillage</option>
-                            <option>Cheveux</option>
-                        </select>
-                    </div>
-                    <div class="col-12">
-                        <label class="form-label">Ingrédients</label>
-                        <div class="ingredient-list">
-                            <!-- Liste dynamique à implémenter -->
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox">
-                                <label class="form-check-label">Acide hyaluronique</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <label class="form-label">Date d'expiration</label>
-                        <input type="date" class="form-control">
-                    </div>
-                </div>
-                <button class="btn btn-primary mt-4">Enregistrer</button>
-            </form>
-        </div>
     </main>
-</div>
-
-<!-- Modals -->
-<div class="modal fade" id="productModal">
-    <!-- Contenu modal pour détails complets -->
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>

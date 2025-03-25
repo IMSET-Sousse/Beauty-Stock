@@ -7,7 +7,7 @@ class Produit {
   - prix : Float
   - ingredients : String
   - quantite_stock : Int
-  - date_peremption : Date
+  - date_peremption : date
 }
 
 class Categorie {

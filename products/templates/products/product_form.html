@@ -1,0 +1,231 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block extra_css %}
+<style>
+    .formset-item {
+        border: 1px solid #dee2e6;
+        border-radius: 0.25rem;
+        padding: 1rem;
+        margin-bottom: 1rem;
+        position: relative;
+    }
+    .delete-row {
+        position: absolute;
+        top: 0.5rem;
+        right: 0.5rem;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'products:product_list' %}">Produits</a></li>
+            {% if product %}
+                <li class="breadcrumb-item"><a href="{% url 'products:product_detail' product.slug %}">{{ product.name }}</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Modifier</li>
+            {% else %}
+                <li class="breadcrumb-item active" aria-current="page">Ajouter</li>
+            {% endif %}
+        </ol>
+    </nav>
+
+    <div class="card shadow-sm">
+        <div class="card-header">
+            <h1 class="h3 mb-0">{{ title }}</h1>
+        </div>
+        <div class="card-body">
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h5 class="card-title mb-0">Informations générales</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        {{ form.name|as_crispy_field }}
+                                    </div>
+                                    <div class="col-md-6">
+                                        {{ form.reference|as_crispy_field }}
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        {{ form.category|as_crispy_field }}
+                                    </div>
+                                    <div class="col-md-6">
+                                        {{ form.barcode|as_crispy_field }}
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        {{ form.brand|as_crispy_field }}
+                                    </div>
+                                    <div class="col-md-6">
+                                        {{ form.supplier|as_crispy_field }}
+                                    </div>
+                                </div>
+                                
+                                {{ form.description|as_crispy_field }}
+                            </div>
+                        </div>
+                        
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h5 class="card-title mb-0">Prix et stock</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        {{ form.price|as_crispy_field }}
+                                    </div>
+                                    <div class="col-md-6">
+                                        {{ form.cost_price|as_crispy_field }}
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        {{ form.stock_quantity|as_crispy_field }}
+                                    </div>
+                                    <div class="col-md-6">
+                                        {{ form.low_stock_threshold|as_crispy_field }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h5 class="card-title mb-0">Caractéristiques</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        {{ form.weight|as_crispy_field }}
+                                    </div>
+                                    <div class="col-md-6">
+                                        {{ form.dimensions|as_crispy_field }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h5 class="card-title mb-0">Image principale</h5>
+                            </div>
+                            <div class="card-body">
+                                {{ form.image|as_crispy_field }}
+                                
+                                {% if product and product.image %}
+                                    <div class="text-center mb-3">
+                                        <img src="{{ product.image.url }}" alt="{{ product.name }}" class="img-fluid rounded" style="max-height: 200px;">
+                                    </div>
+                                {% endif %}
+                                
+                                <div class="form-check">
+                                    {{ form.is_active }}
+                                    <label class="form-check-label" for="{{ form.is_active.id_for_label }}">
+                                        Produit actif
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="card-title mb-0">Images supplémentaires</h5>
+                            </div>
+                            <div class="card-body">
+                                {{ formset.management_form }}
+                                
+                                {% for form in formset %}
+                                    <div class="formset-item">
+                                        {% if form.instance.pk %}
+                                            <div class="text-center mb-3">
+                                                <img src="{{ form.instance.image.url }}" alt="{{ form.instance.alt_text }}" class="img-thumbnail" style="max-height: 100px;">
+                                            </div>
+                                        {% endif %}
+                                        
+                                        {{ form.id }}
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                {{ form.image|as_crispy_field }}
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-8">
+                                                {{ form.alt_text|as_crispy_field }}
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-check mt-4">
+                                                    {{ form.is_primary }}
+                                                    <label class="form-check-label" for="{{ form.is_primary.id_for_label }}">
+                                                        Image principale
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        {% if form.instance.pk %}
+                                            <div class="form-check delete-row">
+                                                {{ form.DELETE }}
+                                                <label class="form-check-label text-danger" for="{{ form.DELETE.id_for_label }}">
+                                                    Supprimer
+                                                </label>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="d-flex justify-content-between mt-4">
+                    <a href="{% if product %}{% url 'products:product_detail' product.slug %}{% else %}{% url 'products:product_list' %}{% endif %}" class="btn btn-outline-secondary">
+                        <i class="bi bi-arrow-left"></i> Retour
+                    </a>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="bi bi-save"></i> Enregistrer
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Make sure only one image can be set as primary
+        const primaryCheckboxes = document.querySelectorAll('input[id$="-is_primary"]');
+        primaryCheckboxes.forEach(function(checkbox) {
+            checkbox.addEventListener('change', function() {
+                if (this.checked) {
+                    primaryCheckboxes.forEach(function(cb) {
+                        if (cb !== checkbox) {
+                            cb.checked = false;
+                        }
+                    });
+                }
+            });
+        });
+    });
+</script>
+{% endblock %}

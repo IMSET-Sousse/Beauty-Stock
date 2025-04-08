@@ -3,11 +3,11 @@ python -m pip freeze > requirements.txt
 python -m pip install -r .\requirements.txt
 Nombre suggéré d’apps Django
 App	Rôle
-products	Gestion des produits cosmétiques (CRUD, détails, filtres, péremption)
-stock	Suivi des niveaux de stock, alertes (produits expirés/faibles)
-users	Authentification, rôles (admin, gestionnaire, etc.)
-dashboard	Vue d’ensemble pour les admins (statistiques, alertes)
-categories	Gestion des catégories de produits
+products	Gestion des produits cosmétiques (CRUD, détails, filtres, péremption) farah
+stock	Suivi des niveaux de stock, alertes (produits expirés/faibles)            ameni 
+!!!!!!users	Authentification, rôles (admin, gestionnaire, etc.)                  no 
+dashboard	Vue d’ensemble pour les admins (statistiques, alertes)            h
+categories	Gestion des catégories de produits                                 moaataz
 core (optionnel)	Accueil, pages génériques, templates communs
 🧩 Explication rapide de chaque app :
 1. products

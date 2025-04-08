@@ -1,4 +1,4 @@
-# Cahier des Charges - Application de gestion de produits cosmétiques "Beauty_Stock"
+# Cahier des Charges: Application de gestion de produits cosmétiques "Beauty Stock"
 ## Description du Projet
 Beauty_Stock est une application web destinée à la gestion des produits cosmétiques d'une boutique en ligne. Elle vise à offrir une interface intuitive pour gérer les stocks, mettre à jour les produits, surveiller leur péremption, et suivre les niveaux de stock. Le projet repose sur Django pour le backend, HTML/CSS avec TailwindCSS ou Bootstrap pour le frontend, et MySQL pour la gestion des données, avec un accent fort sur l’accessibilité, la clarté de l’interface et la performance.
 

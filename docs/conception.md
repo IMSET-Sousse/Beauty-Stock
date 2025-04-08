@@ -49,7 +49,7 @@ Présentation générale des produits cosmétiques.
 
 Mise en avant des produits populaires ou en promotion.
 
-🔍 Recherche et Filtres
+### Recherche et Filtres
 Recherche par mot-clé.
 
 Filtres : catégorie, prix, date de péremption, etc.

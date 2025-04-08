@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .models import Stock, StockAlert
-from product.models import Product
+from products.models import Product
 from django.utils import timezone
 
 def stock_dashboard(request):

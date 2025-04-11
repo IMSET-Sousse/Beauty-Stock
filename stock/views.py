@@ -1,16 +1,21 @@
-from django.shortcuts import render
-from .models import Stock, StockAlert
-from products.models import Product
-from django.utils import timezone
+# stock/views.py
 
-def stock_dashboard(request):
-    # Get all stock entries and filter by low stock
-    low_stock_items = Stock.objects.filter(quantity__lte=10)  # You can change the threshold as needed
-    expired_products = Product.objects.filter(expiration_date__lt=timezone.now())  # Products that are expired
-    stock_alerts = StockAlert.objects.all()
+from django.shortcuts import render , redirect
+from .models import Products
 
-    return render(request, 'stock/stock_dashboard.html', {
-        'low_stock_items': low_stock_items,
-        'expired_products': expired_products,
-        'stock_alerts': stock_alerts,
-    })
+def dashboard(request):
+    products = Products.objects.all()
+    return render(request, 'stock/dashboard.html', {'products': products})
+
+def home(request):
+    return render(request, 'stock/home.html')
+
+def add_product(request):
+    return render(request, 'stock/add_product.html')
+
+def stock_entry(request):
+    return render(request, 'stock/entry.html') 
+
+
+def stock_exit(request):
+    return render(request, 'stock/exit.html') 

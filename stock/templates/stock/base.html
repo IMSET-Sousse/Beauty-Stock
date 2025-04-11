@@ -1,0 +1,28 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}"> 
+    <title>{% block title %}
+        Beauty Stock{% endblock %}</title>
+</head>
+<body>
+    <header>
+        <h1>Beauty Stock</h1>
+        <nav>
+            <a href="{% url 'home' %}">Accueil</a> |
+            <a href="{% url 'dashboard' %}">Dashboard</a> |
+            <a href="{% url 'add_product' %}">Ajouter un produit</a>
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Beauty Stock</p>
+    </footer>
+</body>
+</html>

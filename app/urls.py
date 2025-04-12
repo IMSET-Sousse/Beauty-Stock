@@ -4,6 +4,5 @@ from django.views.generic import RedirectView
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('stock/', include('stock.urls')),
-    path('', RedirectView.as_view(url='/stock/home/')),
-   
+    path('', RedirectView.as_view(url='/stock/home/')),  
 ]

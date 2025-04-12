@@ -1,26 +1,34 @@
 {% load static %}
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
-    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}"> 
-    <title>{% block title %}
-        Beauty Stock{% endblock %}</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Beauty Stock{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
 </head>
 <body>
+    <!-- Navbar -->
     <header>
-        <h1>Beauty Stock</h1>
-        <nav>
-            <a href="{% url 'home' %}">Accueil</a> |
-            <a href="{% url 'dashboard' %}">Dashboard</a> |
-            <a href="{% url 'add_product' %}">Ajouter un produit</a>
-        </nav>
+        <div class="navbar">
+            <div class="logo">Beauty Stock</div>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="{% url 'home' %}">Accueil</a></li>
+                    <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
+                    <li><a href="{% url 'add_product' %}">Ajouter un produit</a></li>
+                </ul>
+            </nav>
+        </div>
     </header>
 
+    <!-- Main Content -->
     <main>
         {% block content %}
         {% endblock %}
     </main>
 
+    <!-- Footer -->
     <footer>
         <p>&copy; 2025 Beauty Stock</p>
     </footer>

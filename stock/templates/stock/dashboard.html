@@ -1,16 +1,16 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Dashboard - Stock</title>
-</head>
-<body>
-    <h1>Liste des produits</h1>
-    <ul>
-        {% for product in products %}
-            <li>{{ product.name }} - Quantité: {{ product.quantity }} - Prix: {{ product.price }} TND</li>
-        {% empty %}
-            <li>Aucun produit disponible.</li>
-        {% endfor %}
-    </ul>
-</body>
-</html>
+{% extends 'stock/base.html' %}
+
+{% block title %}Dashboard - Stock{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1>Liste des produits</h1>
+        <ul>
+            {% for product in products %}
+                <li>{{ product.name }} - Quantité: {{ product.quantity }} - Prix: {{ product.price }} TND</li>
+            {% empty %}
+                <li>Aucun produit disponible.</li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

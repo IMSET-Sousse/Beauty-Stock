@@ -1,0 +1,19 @@
+@startuml
+
+class Produit {
+  - nom : String
+  - description : String
+  - categorie : String
+  - prix : Float
+  - ingredients : String
+  - quantite_stock : Int
+  - date_peremption : date
+}
+
+class Categorie {
+  - nom : String
+}
+
+Produit "1" *-- "1..*" Categorie : "appartient à"
+
+@enduml

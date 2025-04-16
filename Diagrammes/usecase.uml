@@ -1,0 +1,42 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+skinparam actorStyle awesome
+
+actor "Administrateur" as Admin
+actor "Gestionnaire de Stock" as Gestionnaire
+actor "Utilisateur invité" as Invite
+
+rectangle "Application Beauty Stock" {
+    
+    usecase "Consulter les produits" as UC1
+    usecase "Rechercher / Filtrer" as UC2
+    usecase "Consulter fiche produit" as UC3
+    usecase "Authentification" as UC4
+    usecase "Gérer les produits (CRUD)" as UC5
+    usecase "Gérer les catégories" as UC6
+    usecase "Visualiser les alertes de stock" as UC7
+    usecase "Accéder aux statistiques" as UC8
+}
+
+Invite --> UC1
+Invite --> UC2
+Invite --> UC3
+
+Gestionnaire --> UC1
+Gestionnaire --> UC2
+Gestionnaire --> UC3
+Gestionnaire --> UC4
+Gestionnaire --> UC5
+Gestionnaire --> UC6
+Gestionnaire --> UC7
+
+Admin --> UC1
+Admin --> UC2
+Admin --> UC3
+Admin --> UC4
+Admin --> UC5
+Admin --> UC6
+Admin --> UC7
+Admin --> UC8
+@enduml

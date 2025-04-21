@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.db.models import Q
 from .models import Product, ProductImage
 from .forms import ProductForm, ProductImageFormSet
-
+from .models import Product
 
 @login_required
 def product_list(request):
@@ -37,8 +37,15 @@ def product_list(request):
     }
     
     return render(request, 'products/product_list.html', context)
-
-
+@login_required
+def product_detail(request, slug):
+    product = get_object_or_404(Product, slug=slug)
+    images = product.images.all()  # si related_name est "images"
+    return render(request, 'products/product_detail.html', {
+        'title': f"Détails du produit - {product.name}",
+        'product': product,
+        'images': images,
+    })
 @login_required
 def product_detail(request, slug):
     product = get_object_or_404(Product, slug=slug)

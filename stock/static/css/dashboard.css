@@ -1,0 +1,181 @@
+/* ======= RESET ======= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ======= BODY AVEC IMAGE DE FOND ======= */
+body {
+    font-family: 'Helvetica Neue', sans-serif;
+    background: 
+    linear-gradient(rgba(243, 199, 224, 0.88), rgba(255, 248, 252, 0.88)),
+    url("/static/images/bg-beauty.jpg") no-repeat center center fixed;
+    background-size: cover;
+    color: #333;
+    line-height: 1.6;
+    padding-top: 70px; /* Décalage pour la navbar fixée */
+}
+
+/* ======= NAVBAR ======= */
+.navbar {
+    background-color: rgba(255, 255, 255, 0.9); /* Fond semi-transparent */
+    padding: 1rem 2rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05); /* Légère ombre */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 999;
+}
+
+.logo {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #d63384;
+    font-family: 'Georgia', serif;
+}
+
+.nav-links {
+    display: flex;
+    gap: 2rem;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #d63384;
+    font-weight: 500;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: #ad2167;
+    border-bottom: 2px solid #ad2167;
+}
+
+/* ======= CONTAINER ======= */
+.container {
+    max-width: 1000px;
+    margin: 3rem auto;
+    padding: 2rem 2.5rem;
+    background-color: rgba(255, 255, 255, 0.9); /* Fond semi-transparent */
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+/* ======= TITRES ======= */
+h1, h2 {
+    text-align: center;
+    color: #c2185b;
+    font-family: 'Georgia', serif;
+    margin-bottom: 1.5rem;
+}
+
+h2 {
+    font-size: 24px;
+}
+
+/* ======= LISTES DE PRODUITS ======= */
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    background-color: #fff5fa;
+    border-left: 5px solid #d63384;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+/* ======= FORMULAIRE ======= */
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+label {
+    display: block;
+    font-weight: 600;
+    color: #a52a5e;
+    margin-bottom: 0.5rem;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="date"],
+input[type="file"],
+select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+    font-size: 1rem;
+}
+
+/* ======= BOUTONS ======= */
+.btn-primary {
+    background-color: #d63384;
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: inline-block;
+    text-align: center;
+    margin-top: 1rem;
+}
+
+.btn-primary:hover {
+    background-color: #ad2167;
+}
+
+/* ======= FOOTER ======= */
+footer {
+    text-align: center;
+    padding: 1rem 0;
+    margin-top: 3rem;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-top: 1px solid #eee;
+    font-size: 0.9rem;
+    color: #999;
+}
+
+/* ======= RESPONSIVE ======= */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .nav-links {
+        flex-direction: column;
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    .nav-links a {
+        padding: 0.5rem 0;
+    }
+
+    .container {
+        padding: 1.5rem;
+        margin: 2rem 1rem;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+
+    input,
+    .btn-primary {
+        font-size: 14px;
+    }
+}

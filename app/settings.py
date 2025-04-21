@@ -64,17 +64,8 @@ TEMPLATES = [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
-<<<<<<< HEAD
-                'product',
-                'categories',
-                'products',
-                'dashboard',
-                'cart',
-=======
-                
->>>>>>> a79e0c3354aaa37c9598c1f698af23f4c998c8eb
-            ],
+    'django.contrib.messages.context_processors.messages',
+],
         },
     },
 ]
